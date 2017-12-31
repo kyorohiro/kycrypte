@@ -1,6 +1,6 @@
 
 cc=emcc
-functions='["_mbedtls_sha1", "_mycrypte_sha1"]'
+functions='["_mbedtls_sha1"]'
 methods='["ccall", "cwrap"]'
 rule obj
    command=${cc} $in -o $out -I./csrc
@@ -11,4 +11,4 @@ build out/platform.bc: obj csrc/platform.c
 build out/sha1.bc: obj csrc/sha1.c
 build out/sha256.bc: obj csrc/sha256.c
 build out/sha512.bc: obj csrc/sha512.c
-build out/mycrypto.js: lib out/platform.bc out/sha1.bc out/sha256.bc out/sha512.bc 
+build test/mycrypto.js: lib out/platform.bc out/sha1.bc out/sha256.bc out/sha512.bc 

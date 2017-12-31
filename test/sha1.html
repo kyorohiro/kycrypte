@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <script src="mycrypto.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    function bytes2Hex(src) {
+      if(!src) {
+        return '';
+      }
+      var ret = '';
+      for (var i = 0; i < src.length; i++) {
+        var hex = (src[i] & 0xff).toString(16);
+        hex = (hex.length === 1) ? '0' + hex : hex;
+        ret += hex;
+      }
+      return ret;
+    }
+    </script>
+    <script>
+    mbedtls_sha1 = Module.cwrap('mbedtls_sha1', '', ['string','number','number']);
+
+    output = Module._malloc(20);
+    src = "Hello, world!";
+    len = src.length;
+    mbedtls_sha1(src, len, output);
+
+    outputHexSrc = new Uint8Array(20);
+    for (var i = 0; i < 20; i++) {
+      outputHexSrc[i] = HEAP8[output++];   	
+    }
+    console.log("#"+bytes2Hex(outputHexSrc));  
+    </script>
+  </body>
+</html>
